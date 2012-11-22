@@ -1,0 +1,171 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.interzonedev</groupId>
+		<artifactId>interzonedev-parent</artifactId>
+		<version>1.0.0</version>
+	</parent>
+
+	<artifactId>pretendpoint</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+	<packaging>jar</packaging>
+
+	<name>Public API Test Endpoints</name>
+	<description>
+		Simple Java web application that exposes test endpoints and logs incoming request parameters.
+	</description>
+	<url>https://github.com/interzonedev/pretendpoint</url>
+	<inceptionYear>2012</inceptionYear>
+
+	<properties>
+		<spring.version>3.1.2.RELEASE</spring.version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.interzonedev</groupId>
+			<artifactId>heroku-support</artifactId>
+			<version>1.0.15</version>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+			<version>1.1.1</version>
+		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.16</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>1.6.4</version>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+			<version>2.6</version>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.inject</groupId>
+			<artifactId>javax.inject</artifactId>
+			<version>1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-tx</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.validation</groupId>
+			<artifactId>validation-api</artifactId>
+			<version>1.0.0.GA</version>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>4.2.0.Final</version>
+		</dependency>
+
+		<dependency>
+			<groupId>taglibs</groupId>
+			<artifactId>standard</artifactId>
+			<version>1.1.2</version>
+			<scope>runtime</scope>
+		</dependency>
+	</dependencies>
+
+	<repositories>
+		<repository>
+			<id>interzonedev-maven-repo-releases</id>
+			<url>http://repo.interzonedev.com/maven/releases</url>
+			<snapshots>
+				<enabled>false</enabled>
+				<checksumPolicy>fail</checksumPolicy>
+			</snapshots>
+			<releases>
+				<enabled>true</enabled>
+				<checksumPolicy>fail</checksumPolicy>
+			</releases>
+		</repository>
+		<repository>
+			<id>interzonedev-maven-repo-snapshots</id>
+			<url>http://repo.interzonedev.com/maven/snapshots</url>
+			<snapshots>
+				<enabled>true</enabled>
+				<checksumPolicy>fail</checksumPolicy>
+			</snapshots>
+			<releases>
+				<enabled>false</enabled>
+				<checksumPolicy>fail</checksumPolicy>
+			</releases>
+		</repository>
+	</repositories>
+
+	<build>
+		<plugins>
+			<!-- Compile with source and build at Java 1.6. -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.5.1</version>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>appassembler-maven-plugin</artifactId>
+				<version>1.1.1</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>assemble</goal>
+						</goals>
+						<configuration>
+							<assembleDirectory>target</assembleDirectory>
+							<programs>
+								<program>
+									<mainClass>com.interzonedev.pretendpoint.process.Webapp</mainClass>
+									<name>webapp</name>
+								</program>
+							</programs>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>
