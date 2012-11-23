@@ -13,9 +13,13 @@ public class StatusController extends PretendPointController {
 
 	@ResponseBody
 	@RequestMapping(method = RequestMethod.GET)
-	public StatusResponse getStatus() {
+	public StatusResponse getStatus(StatusForm status) {
 
 		log.debug("getStatus - Start");
+
+		if (status.isError()) {
+			throw new RuntimeException("There was an error");
+		}
 
 		StatusResponse statusResponse = new StatusResponse();
 
