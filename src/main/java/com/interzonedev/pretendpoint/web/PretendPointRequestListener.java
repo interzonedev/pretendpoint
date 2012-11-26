@@ -15,7 +15,7 @@ import ch.qos.logback.classic.Logger;
 
 public class PretendPointRequestListener implements ServletRequestListener {
 
-	private static final String newline = System.getProperty("line.separator", "\n");
+	public static final String NEWLINE = System.getProperty("line.separator", "\n");
 
 	private Logger log = (Logger) LoggerFactory.getLogger(getClass());
 
@@ -58,10 +58,9 @@ public class PretendPointRequestListener implements ServletRequestListener {
 	private String getRequestParametersLogMessage(HttpServletRequest request) {
 		StringBuilder logMessage = new StringBuilder();
 
-		@SuppressWarnings("unchecked")
 		Map<String, String[]> parameterMap = request.getParameterMap();
 		if (!parameterMap.isEmpty()) {
-			logMessage.append("Received request params (").append(request.hashCode()).append("):").append(newline);
+			logMessage.append("Received request params (").append(request.hashCode()).append("):").append(NEWLINE);
 			for (String paramName : parameterMap.keySet()) {
 				logMessage.append("  \"").append(paramName).append("\" = [");
 				String[] parameterValues = parameterMap.get(paramName);
@@ -69,9 +68,9 @@ public class PretendPointRequestListener implements ServletRequestListener {
 					logMessage.append("\"").append(parameterValue).append("\",");
 				}
 				logMessage.deleteCharAt(logMessage.length() - 1);
-				logMessage.append("]").append(newline);
+				logMessage.append("]").append(NEWLINE);
 			}
-			logMessage.deleteCharAt(logMessage.length() - newline.length());
+			logMessage.deleteCharAt(logMessage.length() - NEWLINE.length());
 		} else {
 			logMessage.append("No request parameters received (").append(request.hashCode()).append(")");
 		}
@@ -83,23 +82,21 @@ public class PretendPointRequestListener implements ServletRequestListener {
 
 		StringBuilder logMessage = new StringBuilder();
 
-		@SuppressWarnings("unchecked")
 		Enumeration<String> headerNames = request.getHeaderNames();
 		if (headerNames.hasMoreElements()) {
-			logMessage.append("Received request headers (").append(request.hashCode()).append("):").append(newline);
+			logMessage.append("Received request headers (").append(request.hashCode()).append("):").append(NEWLINE);
 
 			while (headerNames.hasMoreElements()) {
 				String headerName = headerNames.nextElement();
 				logMessage.append("  \"").append(headerName).append("\" = [");
-				for (@SuppressWarnings("unchecked")
-				Enumeration<String> headerValues = request.getHeaders(headerName); headerValues.hasMoreElements();) {
+				for (Enumeration<String> headerValues = request.getHeaders(headerName); headerValues.hasMoreElements();) {
 					String headerValue = headerValues.nextElement();
 					logMessage.append("\"").append(headerValue).append("\",");
 				}
 				logMessage.deleteCharAt(logMessage.length() - 1);
-				logMessage.append("]").append(newline);
+				logMessage.append("]").append(NEWLINE);
 			}
-			logMessage.deleteCharAt(logMessage.length() - newline.length());
+			logMessage.deleteCharAt(logMessage.length() - NEWLINE.length());
 		} else {
 			logMessage.append("No request headers received (").append(request.hashCode()).append(")");
 		}
@@ -114,12 +111,12 @@ public class PretendPointRequestListener implements ServletRequestListener {
 
 		Cookie[] cookies = request.getCookies();
 		if ((null != cookies) && (cookies.length > 0)) {
-			logMessage.append("Received cookies (").append(request.hashCode()).append("):").append(newline);
+			logMessage.append("Received cookies (").append(request.hashCode()).append("):").append(NEWLINE);
 			for (Cookie cookie : cookies) {
 				String cookieName = cookie.getName();
 				String cookieValue = cookie.getValue();
 				logMessage.append("  \"").append(cookieName).append("\" = \"").append(cookieValue).append("\"")
-						.append(newline);
+						.append(NEWLINE);
 			}
 		} else {
 			logMessage.append("No cookies received (").append(request.hashCode()).append(")");
