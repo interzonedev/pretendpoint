@@ -1,9 +1,8 @@
 package com.interzonedev.pretendpoint.web;
 
-import static com.interzonedev.pretendpoint.web.PretendPointRequestListener.NEWLINE;
+import static com.interzonedev.pretendpoint.web.PretendPointRequestListener.RESPONSE_ATTRIBUTE_NAME;
 
 import java.io.IOException;
-import java.util.Collection;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -11,7 +10,6 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.LoggerFactory;
@@ -32,50 +30,12 @@ public class PretendPointFilter implements Filter {
 
 		chain.doFilter(request, response);
 
-		log.debug(getResponsePropertiesLogMessage((HttpServletRequest) request, (HttpServletResponse) response));
+		log.debug("doFilter: Setting outgoing response in request attributes");
+		request.setAttribute(RESPONSE_ATTRIBUTE_NAME, (HttpServletResponse) response);
 	}
 
 	@Override
 	public void destroy() {
 	}
 
-	private String getResponsePropertiesLogMessage(HttpServletRequest request, HttpServletResponse response) {
-
-		StringBuilder logMessage = new StringBuilder();
-
-		logMessage.append("Outgoing response properties (").append(request.hashCode()).append("):").append(NEWLINE);
-		logMessage.append("  status = " + response.getStatus()).append(NEWLINE);
-		logMessage.append("  content type = \"" + response.getContentType()).append("\"").append(NEWLINE);
-		logMessage.append("  locale = " + response.getLocale()).append(NEWLINE);
-
-		return logMessage.toString();
-
-	}
-
-	@SuppressWarnings("unused")
-	private String getResponseHeadersLogMessage(HttpServletRequest request, HttpServletResponse response) {
-
-		StringBuilder logMessage = new StringBuilder();
-
-		Collection<String> headerNames = response.getHeaderNames();
-		if (!headerNames.isEmpty()) {
-			logMessage.append("Set response headers (").append(request.hashCode()).append("):").append(NEWLINE);
-
-			for (String headerName : headerNames) {
-				Collection<String> headerValues = response.getHeaders(headerName);
-				logMessage.append("    \"").append(headerName).append("\" = [");
-				for (String headerValue : headerValues) {
-					logMessage.append("\"").append(headerValue).append("\",");
-				}
-				logMessage.deleteCharAt(logMessage.length() - 1);
-				logMessage.append("]").append(NEWLINE);
-			}
-			logMessage.deleteCharAt(logMessage.length() - NEWLINE.length());
-		} else {
-			logMessage.append("No response headers set (").append(request.hashCode()).append(")");
-		}
-
-		return logMessage.toString();
-
-	}
 }

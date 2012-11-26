@@ -1,5 +1,6 @@
 package com.interzonedev.pretendpoint.web;
 
+import java.util.Collection;
 import java.util.Enumeration;
 import java.util.Map;
 
@@ -7,6 +8,7 @@ import javax.servlet.ServletRequestEvent;
 import javax.servlet.ServletRequestListener;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.LoggerFactory;
@@ -16,6 +18,8 @@ import ch.qos.logback.classic.Logger;
 public class PretendPointRequestListener implements ServletRequestListener {
 
 	public static final String NEWLINE = System.getProperty("line.separator", "\n");
+
+	public static final String RESPONSE_ATTRIBUTE_NAME = "httpServletResponse";
 
 	private Logger log = (Logger) LoggerFactory.getLogger(getClass());
 
@@ -40,8 +44,15 @@ public class PretendPointRequestListener implements ServletRequestListener {
 	public void requestDestroyed(ServletRequestEvent event) {
 
 		HttpServletRequest request = (HttpServletRequest) event.getServletRequest();
+		HttpServletResponse response = (HttpServletResponse) request.getAttribute(RESPONSE_ATTRIBUTE_NAME);
 
-		log.debug(getRequestBoundaryLogMessage(request, 14, "Ending"));
+		log.debug(getRequestBoundaryLogMessage(request, 7, "Ending"));
+
+		log.debug(getResponsePropertiesLogMessage(request, response));
+
+		// log.debug(getResponseHeadersLogMessage(request, response));
+
+		log.debug(getRequestBoundaryLogMessage(request, 14, "Sending"));
 
 	}
 
@@ -123,6 +134,46 @@ public class PretendPointRequestListener implements ServletRequestListener {
 		}
 
 		return logMessage.toString();
+	}
+
+	private String getResponsePropertiesLogMessage(HttpServletRequest request, HttpServletResponse response) {
+
+		StringBuilder logMessage = new StringBuilder();
+
+		logMessage.append("Outgoing response properties (").append(request.hashCode()).append("):").append(NEWLINE);
+		logMessage.append("  status = " + response.getStatus()).append(NEWLINE);
+		logMessage.append("  content type = \"" + response.getContentType()).append("\"").append(NEWLINE);
+		logMessage.append("  locale = " + response.getLocale());
+
+		return logMessage.toString();
+
+	}
+
+	@SuppressWarnings("unused")
+	private String getResponseHeadersLogMessage(HttpServletRequest request, HttpServletResponse response) {
+
+		StringBuilder logMessage = new StringBuilder();
+
+		Collection<String> headerNames = response.getHeaderNames();
+		if (!headerNames.isEmpty()) {
+			logMessage.append("Set response headers (").append(request.hashCode()).append("):").append(NEWLINE);
+
+			for (String headerName : headerNames) {
+				Collection<String> headerValues = response.getHeaders(headerName);
+				logMessage.append("    \"").append(headerName).append("\" = [");
+				for (String headerValue : headerValues) {
+					logMessage.append("\"").append(headerValue).append("\",");
+				}
+				logMessage.deleteCharAt(logMessage.length() - 1);
+				logMessage.append("]").append(NEWLINE);
+			}
+			logMessage.deleteCharAt(logMessage.length() - NEWLINE.length());
+		} else {
+			logMessage.append("No response headers set (").append(request.hashCode()).append(")");
+		}
+
+		return logMessage.toString();
+
 	}
 
 }
