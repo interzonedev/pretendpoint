@@ -50,7 +50,7 @@ public class PretendPointRequestListener implements ServletRequestListener {
 
 		log.debug(getResponsePropertiesLogMessage(request, response));
 
-		// log.debug(getResponseHeadersLogMessage(request, response));
+		log.debug(getResponseHeadersLogMessage(request, response));
 
 		log.debug(getRequestBoundaryLogMessage(request, 14, "Sending"));
 
@@ -149,7 +149,6 @@ public class PretendPointRequestListener implements ServletRequestListener {
 
 	}
 
-	@SuppressWarnings("unused")
 	private String getResponseHeadersLogMessage(HttpServletRequest request, HttpServletResponse response) {
 
 		StringBuilder logMessage = new StringBuilder();
