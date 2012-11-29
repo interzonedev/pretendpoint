@@ -61,7 +61,8 @@ public class PretendPointRequestListener implements ServletRequestListener {
 
 		logMessage.append(StringUtils.repeat("*", bannerLength)).append(" ").append(title).append(" (")
 				.append(request.hashCode()).append("): ").append(request.getMethod()).append(" ")
-				.append(request.getRequestURI()).append(" ").append(StringUtils.repeat("*", bannerLength));
+				.append(request.getScheme()).append(" ").append(request.getRequestURI()).append(" ")
+				.append(StringUtils.repeat("*", bannerLength));
 
 		return logMessage.toString();
 	}

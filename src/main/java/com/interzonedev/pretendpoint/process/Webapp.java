@@ -1,21 +1,28 @@
 package com.interzonedev.pretendpoint.process;
 
+import org.slf4j.LoggerFactory;
+
+import ch.qos.logback.classic.Logger;
+
+import com.interzonedev.herokusupport.client.DefaultHerokuSupportClient;
+import com.interzonedev.herokusupport.client.HerokuSupportClient;
 import com.interzonedev.herokusupport.webserver.WebServerParams;
 import com.interzonedev.herokusupport.webserver.WebServerType;
 
-public class Webapp extends AbstractProcess {
+public class Webapp {
 
-	@Override
-	void process(String[] args) throws Exception {
-		log.debug("process: Launching Jetty server");
+	private static final Logger log = (Logger) LoggerFactory.getLogger(Webapp.class);
+
+	public static void main(String[] args) throws Exception {
+
+		log.debug("main: Launching Jetty server");
+
+		HerokuSupportClient herokuSupportClient = new DefaultHerokuSupportClient();
 
 		WebServerParams webServerParams = new WebServerParams(5000);
 
 		herokuSupportClient.startWebServer(WebServerType.JETTY, webServerParams);
-	}
 
-	public static void main(String[] args) throws Exception {
-		(new Webapp()).process(args);
 	}
 
 }
