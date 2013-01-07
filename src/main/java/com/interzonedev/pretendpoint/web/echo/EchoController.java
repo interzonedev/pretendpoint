@@ -3,6 +3,7 @@ package com.interzonedev.pretendpoint.web.echo;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -29,10 +31,17 @@ public class EchoController extends PretendPointController {
 	@ResponseBody
 	@RequestMapping(method = { RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE,
 			RequestMethod.OPTIONS, RequestMethod.HEAD, RequestMethod.TRACE })
-	public ResponseEntity<String> echo(HttpServletRequest request) throws JsonGenerationException,
+	public ResponseEntity<String> echo(EchoForm echoForm, HttpServletRequest request) throws JsonGenerationException,
 			JsonMappingException, IOException {
 
 		log.debug("echo - Start");
+
+		HttpStatus httpStatus = HttpStatus.OK;
+		try {
+			httpStatus = HttpStatus.valueOf(echoForm.getHttpStatusValue());
+		} catch (IllegalArgumentException iae) {
+			// Ignore
+		}
 
 		String url = request.getRequestURL().toString();
 
@@ -66,11 +75,24 @@ public class EchoController extends PretendPointController {
 
 		String responseBody = (new ObjectMapper()).writeValueAsString(echoResponse);
 
-		ResponseEntity<String> responseEntity = new ResponseEntity<String>(responseBody, HttpStatus.OK);
+		ResponseEntity<String> responseEntity = new ResponseEntity<String>(responseBody, httpStatus);
 
 		log.debug("echo - End");
 
 		return responseEntity;
+
+	}
+
+	@ModelAttribute("httpStatuses")
+	public Map<Integer, String> getHttpStatuses() {
+
+		Map<Integer, String> httpStatuses = new HashMap<Integer, String>();
+
+		for (HttpStatus httpStatus : HttpStatus.values()) {
+			httpStatuses.put(httpStatus.value(), httpStatus.getReasonPhrase());
+		}
+
+		return Collections.unmodifiableMap(httpStatuses);
 
 	}
 
