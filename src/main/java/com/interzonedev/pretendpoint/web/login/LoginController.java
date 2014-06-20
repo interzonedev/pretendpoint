@@ -1,9 +1,12 @@
 package com.interzonedev.pretendpoint.web.login;
 
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.util.UUID;
 
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,7 +42,11 @@ public class LoginController extends PretendPointController {
 
         String responseBody = (new ObjectMapper()).writeValueAsString(loginResponse);
 
-        ResponseEntity<String> responseEntity = new ResponseEntity<String>(responseBody, httpStatus);
+        HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.remove("Content-Type");
+        responseHeaders.setContentType(new MediaType("application", "json", Charset.forName("utf-8")));
+
+        ResponseEntity<String> responseEntity = new ResponseEntity<String>(responseBody, responseHeaders, httpStatus);
 
         log.debug("login - End");
 
