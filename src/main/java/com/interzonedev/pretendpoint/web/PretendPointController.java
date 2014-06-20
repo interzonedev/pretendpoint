@@ -11,21 +11,21 @@ import ch.qos.logback.classic.Logger;
 
 public abstract class PretendPointController {
 
-	protected Logger log = (Logger) LoggerFactory.getLogger(getClass());
+    protected Logger log = (Logger) LoggerFactory.getLogger(getClass());
 
-	@ResponseBody
-	@ExceptionHandler(Throwable.class)
-	protected ErrorResponse handleThrowable(Throwable t, HttpServletResponse response) {
+    @ResponseBody
+    @ExceptionHandler(Throwable.class)
+    protected ErrorResponse handleThrowable(Throwable t, HttpServletResponse response) {
 
-		log.error("handleThrowable", t);
+        log.error("handleThrowable", t);
 
-		response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 
-		String stackTrace = ExceptionUtils.getStackTrace(t);
+        String stackTrace = ExceptionUtils.getStackTrace(t);
 
-		ErrorResponse errorResponse = new ErrorResponse(stackTrace);
+        ErrorResponse errorResponse = new ErrorResponse(stackTrace);
 
-		return errorResponse;
+        return errorResponse;
 
-	}
+    }
 }

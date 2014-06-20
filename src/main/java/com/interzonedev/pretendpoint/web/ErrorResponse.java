@@ -6,28 +6,28 @@ import java.util.Map;
 
 public class ErrorResponse extends PretendPointResponse {
 
-	private Map<String, String> validationErrorMessages;
+    private Map<String, String> validationErrorMessages;
 
-	private String processingErrorMessage;
+    private String processingErrorMessage;
 
-	public ErrorResponse(Map<String, String> validationErrorMessages) {
-		this.error = true;
-		this.validationErrorMessages = validationErrorMessages;
-		this.processingErrorMessage = null;
-	}
+    public ErrorResponse(Map<String, String> validationErrorMessages) {
+        this.error = true;
+        this.validationErrorMessages = validationErrorMessages;
+        this.processingErrorMessage = null;
+    }
 
-	public ErrorResponse(String processingErrorMessage) {
-		this.error = true;
-		this.processingErrorMessage = processingErrorMessage;
-		this.validationErrorMessages = new HashMap<String, String>();
-	}
+    public ErrorResponse(String processingErrorMessage) {
+        this.error = true;
+        this.processingErrorMessage = processingErrorMessage;
+        this.validationErrorMessages = new HashMap<String, String>();
+    }
 
-	public Map<String, String> getValidationErrorMessages() {
-		return Collections.unmodifiableMap(validationErrorMessages);
-	}
+    public Map<String, String> getValidationErrorMessages() {
+        return Collections.unmodifiableMap(validationErrorMessages);
+    }
 
-	public String getProcessingErrorMessage() {
-		return processingErrorMessage;
-	}
+    public String getProcessingErrorMessage() {
+        return processingErrorMessage;
+    }
 
 }

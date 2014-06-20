@@ -4,8 +4,8 @@ import com.interzonedev.pretendpoint.web.PretendPointResponse;
 
 public class StatusResponse extends PretendPointResponse {
 
-	public long getCurrentTimeMillis() {
-		return System.currentTimeMillis();
-	}
+    public long getCurrentTimeMillis() {
+        return System.currentTimeMillis();
+    }
 
 }

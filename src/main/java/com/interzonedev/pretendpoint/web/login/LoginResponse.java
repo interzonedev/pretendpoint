@@ -4,14 +4,14 @@ import com.interzonedev.pretendpoint.web.PretendPointResponse;
 
 public class LoginResponse extends PretendPointResponse {
 
-	private String authToken;
+    private String authToken;
 
-	public LoginResponse(String authToken) {
-		this.authToken = authToken;
-	}
+    public LoginResponse(String authToken) {
+        this.authToken = authToken;
+    }
 
-	public String getAuthToken() {
-		return authToken;
-	}
+    public String getAuthToken() {
+        return authToken;
+    }
 
 }

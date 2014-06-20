@@ -16,34 +16,34 @@ import com.interzonedev.pretendpoint.web.PretendPointController;
 @RequestMapping(value = "/segmented")
 public class SegmentedController extends PretendPointController {
 
-	@ResponseBody
-	@RequestMapping(method = { RequestMethod.GET })
-	public void writeSegmentedResponse(SegmentedForm delayForm, HttpServletResponse response)
-			throws InterruptedException, IOException {
+    @ResponseBody
+    @RequestMapping(method = { RequestMethod.GET })
+    public void writeSegmentedResponse(SegmentedForm delayForm, HttpServletResponse response)
+            throws InterruptedException, IOException {
 
-		log.debug("writeSegmentedResponse: Start");
+        log.debug("writeSegmentedResponse: Start");
 
-		int segments = Math.max(1, delayForm.getSegments());
+        int segments = Math.max(1, delayForm.getSegments());
 
-		long delay = Math.max(0, delayForm.getDelay());
+        long delay = Math.max(0, delayForm.getDelay());
 
-		log.debug("writeSegmentedResponse: Outputing " + segments + " segments with " + delay + " ms delay before each");
+        log.debug("writeSegmentedResponse: Outputing " + segments + " segments with " + delay + " ms delay before each");
 
-		response.setContentType("text/plain");
+        response.setContentType("text/plain");
 
-		OutputStream out = response.getOutputStream();
+        OutputStream out = response.getOutputStream();
 
-		for (int i = 0; i < segments; i++) {
-			Thread.sleep(delay);
+        for (int i = 0; i < segments; i++) {
+            Thread.sleep(delay);
 
-			String output = "Segment" + i;
+            String output = "Segment" + i;
 
-			out.write(output.getBytes());
-			out.flush();
-		}
+            out.write(output.getBytes());
+            out.flush();
+        }
 
-		log.debug("writeSegmentedResponse: End");
+        log.debug("writeSegmentedResponse: End");
 
-	}
+    }
 
 }

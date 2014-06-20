@@ -11,22 +11,22 @@ import com.interzonedev.pretendpoint.web.PretendPointController;
 @RequestMapping(value = "/status")
 public class StatusController extends PretendPointController {
 
-	@ResponseBody
-	@RequestMapping(method = RequestMethod.GET)
-	public StatusResponse getStatus(StatusForm status) {
+    @ResponseBody
+    @RequestMapping(method = RequestMethod.GET)
+    public StatusResponse getStatus(StatusForm status) {
 
-		log.debug("getStatus - Start");
+        log.debug("getStatus - Start");
 
-		if (status.isError()) {
-			throw new RuntimeException("There was an error");
-		}
+        if (status.isError()) {
+            throw new RuntimeException("There was an error");
+        }
 
-		StatusResponse statusResponse = new StatusResponse();
+        StatusResponse statusResponse = new StatusResponse();
 
-		log.debug("getStatus - End");
+        log.debug("getStatus - End");
 
-		return statusResponse;
+        return statusResponse;
 
-	}
+    }
 
 }

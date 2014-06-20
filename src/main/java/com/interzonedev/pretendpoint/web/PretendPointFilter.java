@@ -18,24 +18,24 @@ import ch.qos.logback.classic.Logger;
 
 public class PretendPointFilter implements Filter {
 
-	private Logger log = (Logger) LoggerFactory.getLogger(getClass());
+    private Logger log = (Logger) LoggerFactory.getLogger(getClass());
 
-	@Override
-	public void init(FilterConfig filterConfig) throws ServletException {
-	}
+    @Override
+    public void init(FilterConfig filterConfig) throws ServletException {
+    }
 
-	@Override
-	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException,
-			ServletException {
+    @Override
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException,
+            ServletException {
 
-		chain.doFilter(request, response);
+        chain.doFilter(request, response);
 
-		log.debug("doFilter: Setting outgoing response in request attributes");
-		request.setAttribute(RESPONSE_ATTRIBUTE_NAME, (HttpServletResponse) response);
-	}
+        log.debug("doFilter: Setting outgoing response in request attributes");
+        request.setAttribute(RESPONSE_ATTRIBUTE_NAME, (HttpServletResponse) response);
+    }
 
-	@Override
-	public void destroy() {
-	}
+    @Override
+    public void destroy() {
+    }
 
 }

@@ -19,32 +19,32 @@ import com.interzonedev.pretendpoint.web.PretendPointController;
 @RequestMapping(value = "/login")
 public class LoginController extends PretendPointController {
 
-	@ResponseBody
-	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<String> login(LoginForm loginForm) throws JsonGenerationException, JsonMappingException,
-			IOException {
+    @ResponseBody
+    @RequestMapping(method = RequestMethod.POST)
+    public ResponseEntity<String> login(LoginForm loginForm) throws JsonGenerationException, JsonMappingException,
+            IOException {
 
-		log.debug("login - Start");
+        log.debug("login - Start");
 
-		String authToken = null;
-		HttpStatus httpStatus = HttpStatus.OK;
+        String authToken = null;
+        HttpStatus httpStatus = HttpStatus.OK;
 
-		if ("fail1234".equals(loginForm.getPassword())) {
-			httpStatus = HttpStatus.FORBIDDEN;
-		} else {
-			authToken = UUID.randomUUID().toString();
-		}
+        if ("fail1234".equals(loginForm.getPassword())) {
+            httpStatus = HttpStatus.FORBIDDEN;
+        } else {
+            authToken = UUID.randomUUID().toString();
+        }
 
-		LoginResponse loginResponse = new LoginResponse(authToken);
+        LoginResponse loginResponse = new LoginResponse(authToken);
 
-		String responseBody = (new ObjectMapper()).writeValueAsString(loginResponse);
+        String responseBody = (new ObjectMapper()).writeValueAsString(loginResponse);
 
-		ResponseEntity<String> responseEntity = new ResponseEntity<String>(responseBody, httpStatus);
+        ResponseEntity<String> responseEntity = new ResponseEntity<String>(responseBody, httpStatus);
 
-		log.debug("login - End");
+        log.debug("login - End");
 
-		return responseEntity;
+        return responseEntity;
 
-	}
+    }
 
 }

@@ -26,59 +26,59 @@ import com.interzonedev.pretendpoint.web.PretendPointController;
 @RequestMapping(value = "/echo")
 public class EchoController extends PretendPointController {
 
-	@ResponseBody
-	@RequestMapping(method = { RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE,
-			RequestMethod.OPTIONS, RequestMethod.HEAD, RequestMethod.TRACE })
-	public ResponseEntity<String> echo(EchoForm echoForm, HttpServletRequest request) throws JsonGenerationException,
-			JsonMappingException, IOException {
+    @ResponseBody
+    @RequestMapping(method = { RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE,
+            RequestMethod.OPTIONS, RequestMethod.HEAD, RequestMethod.TRACE })
+    public ResponseEntity<String> echo(EchoForm echoForm, HttpServletRequest request) throws JsonGenerationException,
+            JsonMappingException, IOException {
 
-		log.debug("echo - Start");
+        log.debug("echo - Start");
 
-		HttpStatus httpStatus = HttpStatus.OK;
-		try {
-			httpStatus = HttpStatus.valueOf(echoForm.getHttpStatusValue());
-		} catch (IllegalArgumentException iae) {
-			// Ignore
-		}
+        HttpStatus httpStatus = HttpStatus.OK;
+        try {
+            httpStatus = HttpStatus.valueOf(echoForm.getHttpStatusValue());
+        } catch (IllegalArgumentException iae) {
+            // Ignore
+        }
 
-		String url = request.getRequestURL().toString();
+        String url = request.getRequestURL().toString();
 
-		String method = request.getMethod();
+        String method = request.getMethod();
 
-		Map<String, List<String>> parameters = new HashMap<String, List<String>>();
-		Map<String, String[]> parameterMap = request.getParameterMap();
-		if (!parameterMap.isEmpty()) {
-			for (String paramName : parameterMap.keySet()) {
-				List<String> parameterValues = Arrays.asList(parameterMap.get(paramName));
-				parameters.put(paramName, parameterValues);
-			}
-		}
+        Map<String, List<String>> parameters = new HashMap<String, List<String>>();
+        Map<String, String[]> parameterMap = request.getParameterMap();
+        if (!parameterMap.isEmpty()) {
+            for (String paramName : parameterMap.keySet()) {
+                List<String> parameterValues = Arrays.asList(parameterMap.get(paramName));
+                parameters.put(paramName, parameterValues);
+            }
+        }
 
-		Map<String, List<String>> headers = new HashMap<String, List<String>>();
-		Enumeration<String> headerNames = request.getHeaderNames();
-		if (headerNames.hasMoreElements()) {
-			while (headerNames.hasMoreElements()) {
-				String headerName = headerNames.nextElement();
-				List<String> headerValues = new ArrayList<String>();
-				for (Enumeration<String> headerValuesEnum = request.getHeaders(headerName); headerValuesEnum
-						.hasMoreElements();) {
-					String headerValue = headerValuesEnum.nextElement();
-					headerValues.add(headerValue);
-				}
-				headers.put(headerName, headerValues);
-			}
-		}
+        Map<String, List<String>> headers = new HashMap<String, List<String>>();
+        Enumeration<String> headerNames = request.getHeaderNames();
+        if (headerNames.hasMoreElements()) {
+            while (headerNames.hasMoreElements()) {
+                String headerName = headerNames.nextElement();
+                List<String> headerValues = new ArrayList<String>();
+                for (Enumeration<String> headerValuesEnum = request.getHeaders(headerName); headerValuesEnum
+                        .hasMoreElements();) {
+                    String headerValue = headerValuesEnum.nextElement();
+                    headerValues.add(headerValue);
+                }
+                headers.put(headerName, headerValues);
+            }
+        }
 
-		EchoResponse echoResponse = new EchoResponse(url, method, parameters, headers);
+        EchoResponse echoResponse = new EchoResponse(url, method, parameters, headers);
 
-		String responseBody = (new ObjectMapper()).writeValueAsString(echoResponse);
+        String responseBody = (new ObjectMapper()).writeValueAsString(echoResponse);
 
-		ResponseEntity<String> responseEntity = new ResponseEntity<String>(responseBody, httpStatus);
+        ResponseEntity<String> responseEntity = new ResponseEntity<String>(responseBody, httpStatus);
 
-		log.debug("echo - End");
+        log.debug("echo - End");
 
-		return responseEntity;
+        return responseEntity;
 
-	}
+    }
 
 }

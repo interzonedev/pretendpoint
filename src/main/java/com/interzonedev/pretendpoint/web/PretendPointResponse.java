@@ -2,10 +2,10 @@ package com.interzonedev.pretendpoint.web;
 
 public abstract class PretendPointResponse {
 
-	protected boolean error = false;
+    protected boolean error = false;
 
-	public boolean getError() {
-		return error;
-	}
+    public boolean getError() {
+        return error;
+    }
 
 }
