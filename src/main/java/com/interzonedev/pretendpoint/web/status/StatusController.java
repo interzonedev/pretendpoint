@@ -17,6 +17,9 @@ public class StatusController extends PretendPointController {
 
         log.debug("getStatus - Start");
 
+        logEnvironment();
+        logSystem();
+
         if (status.isError()) {
             throw new RuntimeException("There was an error");
         }
@@ -27,6 +30,22 @@ public class StatusController extends PretendPointController {
 
         return statusResponse;
 
+    }
+
+    private void logEnvironment() {
+        log.debug("***** Starting Output of Environment Variables *****");
+        System.getenv().forEach((key, value) -> {
+            log.debug(key + " = " + value);
+        });
+        log.debug("***** Ending Output of Environment Variables *****");
+    }
+
+    private void logSystem() {
+        log.debug("***** Starting Output of System Variables *****");
+        System.getProperties().forEach((key, value) -> {
+            log.debug(key + " = " + value);
+        });
+        log.debug("***** Ending Output of System Variables *****");
     }
 
 }
