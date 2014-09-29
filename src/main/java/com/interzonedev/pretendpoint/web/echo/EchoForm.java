@@ -6,12 +6,22 @@ public class EchoForm {
 
     private int httpStatusValue = HttpStatus.OK.value();
 
+    private String httpLocation;
+
     public int getHttpStatusValue() {
         return httpStatusValue;
     }
 
     public void setHttpStatusValue(int httpStatusValue) {
         this.httpStatusValue = httpStatusValue;
+    }
+
+    public String getHttpLocation() {
+        return httpLocation;
+    }
+
+    public void setHttpLocation(String httpLocation) {
+        this.httpLocation = httpLocation;
     }
 
 }

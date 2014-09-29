@@ -1,6 +1,8 @@
 package com.interzonedev.pretendpoint.web.echo;
 
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -11,6 +13,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -33,7 +36,7 @@ public class EchoController extends PretendPointController {
     @RequestMapping(method = { RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE,
             RequestMethod.OPTIONS, RequestMethod.HEAD, RequestMethod.TRACE })
     public ResponseEntity<String> echo(EchoForm echoForm, HttpServletRequest request) throws JsonGenerationException,
-            JsonMappingException, IOException {
+            JsonMappingException, IOException, URISyntaxException {
 
         log.debug("echo - Start");
 
@@ -79,6 +82,10 @@ public class EchoController extends PretendPointController {
         HttpHeaders responseHeaders = new HttpHeaders();
         responseHeaders.remove("Content-Type");
         responseHeaders.setContentType(new MediaType("application", "json", Charset.forName("utf-8")));
+
+        if (StringUtils.isNotBlank(echoForm.getHttpLocation())) {
+            responseHeaders.setLocation(new URI(echoForm.getHttpLocation().trim()));
+        }
 
         ResponseEntity<String> responseEntity = new ResponseEntity<String>(responseBody, responseHeaders, httpStatus);
 
