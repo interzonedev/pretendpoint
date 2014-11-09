@@ -38,7 +38,7 @@ public class EchoController extends PretendPointController {
     public ResponseEntity<String> echo(EchoForm echoForm, HttpServletRequest request) throws JsonGenerationException,
             JsonMappingException, IOException, URISyntaxException {
 
-        log.debug("echo - Start");
+        log.debug("echo: Start");
 
         HttpStatus httpStatus = HttpStatus.OK;
         try {
@@ -89,7 +89,14 @@ public class EchoController extends PretendPointController {
 
         ResponseEntity<String> responseEntity = new ResponseEntity<String>(responseBody, responseHeaders, httpStatus);
 
-        log.debug("echo - End");
+        try {
+            long sleepMillis = Long.parseLong(echoForm.getSleepMillis());
+            Thread.sleep(sleepMillis);
+        } catch (Exception e) {
+            // Do nothing.
+        }
+
+        log.debug("echo: End");
 
         return responseEntity;
 

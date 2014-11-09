@@ -8,6 +8,8 @@ public class EchoForm {
 
     private String httpLocation;
 
+    private String sleepMillis;
+
     public int getHttpStatusValue() {
         return httpStatusValue;
     }
@@ -22,6 +24,14 @@ public class EchoForm {
 
     public void setHttpLocation(String httpLocation) {
         this.httpLocation = httpLocation;
+    }
+
+    public String getSleepMillis() {
+        return sleepMillis;
+    }
+
+    public void setSleepMillis(String sleepMillis) {
+        this.sleepMillis = sleepMillis;
     }
 
 }
