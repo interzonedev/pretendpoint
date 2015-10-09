@@ -21,7 +21,7 @@ public class Webapp {
 
         WebServerParams webServerParams = new WebServerParams(5001);
 
-        herokuSupportClient.startWebServer(WebServerType.JETTY, webServerParams);
+        herokuSupportClient.startWebServer(WebServerType.JETTY, webServerParams, null, null, null);
 
     }
 
