@@ -16,8 +16,10 @@ public class EchoResponse extends PretendPointResponse {
 
     private final Map<String, List<String>> headers;
 
+    private final String body;
+
     public EchoResponse(String url, String method, Map<String, List<String>> parameters,
-            Map<String, List<String>> headers) {
+            Map<String, List<String>> headers, String body) {
         this.url = url;
         this.method = method;
 
@@ -25,15 +27,15 @@ public class EchoResponse extends PretendPointResponse {
             this.parameters = Collections.unmodifiableMap(parameters);
         } else {
             this.parameters = Collections.emptyMap();
-
         }
 
         if (null != headers) {
             this.headers = Collections.unmodifiableMap(headers);
         } else {
             this.headers = Collections.emptyMap();
-
         }
+
+        this.body = body;
     }
 
     public String getUrl() {
@@ -50,6 +52,10 @@ public class EchoResponse extends PretendPointResponse {
 
     public Map<String, List<String>> getHeaders() {
         return headers;
+    }
+
+    public String getBody() {
+        return body;
     }
 
 }

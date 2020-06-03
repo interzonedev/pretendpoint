@@ -2,5 +2,7 @@ target/
 .classpath
 .project
 .settings/
+.springBeans
 *.jpage
-
+.idea/
+*.iml

@@ -13,6 +13,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -47,6 +48,8 @@ public class EchoController extends PretendPointController {
             // Ignore
         }
 
+        String body = getRequestBody(request);
+
         String url = request.getRequestURL().toString();
 
         String method = request.getMethod();
@@ -75,7 +78,7 @@ public class EchoController extends PretendPointController {
             }
         }
 
-        EchoResponse echoResponse = new EchoResponse(url, method, parameters, headers);
+        EchoResponse echoResponse = new EchoResponse(url, method, parameters, headers, body);
 
         String responseBody = (new ObjectMapper()).writeValueAsString(echoResponse);
 
@@ -102,4 +105,8 @@ public class EchoController extends PretendPointController {
 
     }
 
+    public String getRequestBody(HttpServletRequest request) throws IOException {
+        return IOUtils.toString(request.getInputStream(), "UTF-8");
+    }
+    
 }
