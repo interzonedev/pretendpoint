@@ -27,10 +27,14 @@ public class PretendPointFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException,
             ServletException {
 
+        log.debug("doFilter: Start");
+
         chain.doFilter(request, response);
 
         log.debug("doFilter: Setting outgoing response in request attributes");
         request.setAttribute(RESPONSE_ATTRIBUTE_NAME, (HttpServletResponse) response);
+
+        log.debug("doFilter: End");
     }
 
     @Override
