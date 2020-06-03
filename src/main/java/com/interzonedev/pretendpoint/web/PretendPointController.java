@@ -1,17 +1,16 @@
 package com.interzonedev.pretendpoint.web;
 
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.commons.lang.exception.ExceptionUtils;
+import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import ch.qos.logback.classic.Logger;
+import javax.servlet.http.HttpServletResponse;
 
 public abstract class PretendPointController {
 
-    protected Logger log = (Logger) LoggerFactory.getLogger(getClass());
+    private static final Logger log = LoggerFactory.getLogger(PretendPointController.class);
 
     @ResponseBody
     @ExceptionHandler(Throwable.class)

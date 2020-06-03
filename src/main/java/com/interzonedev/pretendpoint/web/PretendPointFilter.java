@@ -1,8 +1,7 @@
 package com.interzonedev.pretendpoint.web;
 
-import static com.interzonedev.pretendpoint.web.PretendPointRequestListener.RESPONSE_ATTRIBUTE_NAME;
-
-import java.io.IOException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -11,14 +10,14 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
-import org.slf4j.LoggerFactory;
+import static com.interzonedev.pretendpoint.web.PretendPointRequestListener.RESPONSE_ATTRIBUTE_NAME;
 
-import ch.qos.logback.classic.Logger;
 
 public class PretendPointFilter implements Filter {
 
-    private Logger log = (Logger) LoggerFactory.getLogger(getClass());
+    private static final Logger log = LoggerFactory.getLogger(PretendPointFilter.class);
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {

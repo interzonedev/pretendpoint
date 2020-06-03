@@ -1,9 +1,11 @@
 package com.interzonedev.pretendpoint.web.login;
 
-import java.io.IOException;
-import java.nio.charset.Charset;
-import java.util.UUID;
-
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.interzonedev.pretendpoint.web.PretendPointController;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -13,14 +15,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.fasterxml.jackson.core.JsonGenerationException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.interzonedev.pretendpoint.web.PretendPointController;
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.util.UUID;
 
 @Controller
 @RequestMapping(value = "/login")
 public class LoginController extends PretendPointController {
+
+    private static final Logger log = LoggerFactory.getLogger(LoginController.class);
 
     @ResponseBody
     @RequestMapping(method = RequestMethod.POST)

@@ -1,22 +1,24 @@
 package com.interzonedev.pretendpoint.web.segmented;
 
-import java.io.IOException;
-import java.io.OutputStream;
-import java.nio.charset.Charset;
-
-import javax.servlet.http.HttpServletResponse;
-
+import com.interzonedev.pretendpoint.web.PretendPointController;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.interzonedev.pretendpoint.web.PretendPointController;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.nio.charset.Charset;
 
 @Controller
 @RequestMapping(value = "/segmented")
 public class SegmentedController extends PretendPointController {
+
+    private static final Logger log = LoggerFactory.getLogger(SegmentedController.class);
 
     @ResponseBody
     @RequestMapping(method = { RequestMethod.GET })

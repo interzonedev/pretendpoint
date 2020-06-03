@@ -1,15 +1,18 @@
 package com.interzonedev.pretendpoint.web.status;
 
+import com.interzonedev.pretendpoint.web.PretendPointController;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.interzonedev.pretendpoint.web.PretendPointController;
-
 @Controller
 @RequestMapping(value = "/status")
 public class StatusController extends PretendPointController {
+
+    private static final Logger log = LoggerFactory.getLogger(StatusController.class);
 
     @ResponseBody
     @RequestMapping(method = RequestMethod.GET)

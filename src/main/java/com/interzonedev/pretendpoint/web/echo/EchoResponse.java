@@ -1,10 +1,10 @@
 package com.interzonedev.pretendpoint.web.echo;
 
+import com.interzonedev.pretendpoint.web.PretendPointResponse;
+
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-
-import com.interzonedev.pretendpoint.web.PretendPointResponse;
 
 public class EchoResponse extends PretendPointResponse {
 

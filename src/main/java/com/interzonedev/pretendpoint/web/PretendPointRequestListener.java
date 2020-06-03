@@ -1,19 +1,17 @@
 package com.interzonedev.pretendpoint.web;
 
-import java.util.Collection;
-import java.util.Enumeration;
-import java.util.Map;
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletRequestEvent;
 import javax.servlet.ServletRequestListener;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.apache.commons.lang.StringUtils;
-import org.slf4j.LoggerFactory;
-
-import ch.qos.logback.classic.Logger;
+import java.util.Collection;
+import java.util.Enumeration;
+import java.util.Map;
 
 public class PretendPointRequestListener implements ServletRequestListener {
 
@@ -21,7 +19,7 @@ public class PretendPointRequestListener implements ServletRequestListener {
 
     public static final String RESPONSE_ATTRIBUTE_NAME = "httpServletResponse";
 
-    private Logger log = (Logger) LoggerFactory.getLogger(getClass());
+    private static final Logger log = LoggerFactory.getLogger(PretendPointRequestListener.class);
 
     @Override
     public void requestInitialized(ServletRequestEvent event) {
