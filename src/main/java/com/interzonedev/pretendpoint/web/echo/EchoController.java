@@ -94,6 +94,8 @@ public class EchoController extends PretendPointController {
 
         ResponseEntity<String> responseEntity = new ResponseEntity<String>(responseBody, responseHeaders, httpStatus);
 
+        log.debug("echo: responseEntity = " + responseEntity);
+
         try {
             long sleepMillis = Long.parseLong(echoForm.getSleepMillis());
             Thread.sleep(sleepMillis);
